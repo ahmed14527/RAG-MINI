@@ -1,0 +1,17 @@
+# Development requirements
+# Include base requirements
+-r base.txt
+
+# Development tools
+build==1.3.0
+pyproject_hooks==1.2.0
+setuptools==80.9.0
+
+# Development server and utilities
+watchfiles==1.1.0
+shellingham==1.5.4
+typer==0.19.2
+
+# Development dependencies (if any specific dev packages were in your requirements)
+hf-xet==1.1.10
+huggingface-hub==0.35.3

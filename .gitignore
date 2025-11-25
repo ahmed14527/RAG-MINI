@@ -1,0 +1,33 @@
+# Django PDF RAG Chat - Essential Git Ignore
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+*.log
+db.sqlite3*
+staticfiles/
+
+# Media files (user uploads)
+media/
+
+# Environment variables
+.env
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# ChromaDB vector storage
+chroma_db/
+
+# OS specific
+.DS_Store
+Thumbs.db
