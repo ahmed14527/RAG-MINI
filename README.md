@@ -75,8 +75,8 @@ A production-ready real-time chat application that enables users to upload PDF d
 #### 1. Repository Setup
 
 ```bash
-git clone https://github.com/MohamedSalahdj/django-pdf-rag-chat.git
-cd django-pdf-rag-chat
+git clone https://github.com/ahmed14527/RAG-MINI
+
 ```
 
 #### 2. Virtual Environment
@@ -189,7 +189,7 @@ ws://127.0.0.1:8000/api/v1/ws/chat/?token=<access_token>
 - 📤 **Sending Messages**:
 
 ```{
-  "query": "What programming languages does Mohamed know?"
+  "query": "What programming languages does ahmed know?"
 }
 ```
 
@@ -261,7 +261,7 @@ ws://127.0.0.1:8000/api/v1/ws/chat/?token=your-jwt-access-token
 
 1. Enable WebSocket in Postman
 2. Connect to: `ws://127.0.0.1:8000/api/v1/ws/chat/?token=your-token`
-3. Send: `{ "query": "What programming languages does Mohamed know?" }`
+3. Send: `{ "query": "What programming languages does ahmed know?" }`
 4. Observe streaming responses
 
 ## 🔧 Dependencies and Environment Variables
