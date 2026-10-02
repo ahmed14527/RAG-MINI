@@ -1,0 +1,5 @@
+# Production requirements
+-r base.txt
+
+# Static files (Django admin) served by the ASGI app
+whitenoise==6.12.0

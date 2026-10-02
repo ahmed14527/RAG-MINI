@@ -1,0 +1,22 @@
+# Development overrides: live reload for both services.
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+
+services:
+  backend:
+    environment:
+      DJANGO_SETTINGS_MODULE: project.settings.dev
+    volumes:
+      - ./backend:/app
+      - rag_data:/app/data
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      WATCHPACK_POLLING: "true"

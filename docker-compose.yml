@@ -1,0 +1,43 @@
+# Production-like stack: `docker compose up --build`
+#   Frontend  http://localhost:3000
+#   API       http://localhost:8000
+#
+# The browser calls the API directly, so both ports are published.
+# Configuration comes from .env (see .env.example); it is optional, but
+# without OPENAI_API_KEY uploads and chat will fail.
+
+services:
+  backend:
+    build: ./backend
+    image: mini-rag-backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DJANGO_SETTINGS_MODULE: project.settings.prod
+      DATA_DIR: /app/data
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+    volumes:
+      - rag_data:/app/data
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: mini-rag-frontend
+    environment:
+      # URL the *browser* uses to reach the API. Read at request time, so it
+      # can be changed without rebuilding the image.
+      API_URL: ${PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  # SQLite database, uploaded files and the Chroma index.
+  rag_data:

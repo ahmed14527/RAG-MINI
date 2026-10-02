@@ -1,0 +1,17 @@
+# Never send secrets or local state to the build context
+.env
+.env.*
+.venv
+venv
+env
+**/__pycache__
+**/*.py[cod]
+db.sqlite3*
+media
+chroma_db
+staticfiles
+data
+.cache
+*.log
+.vscode
+.idea

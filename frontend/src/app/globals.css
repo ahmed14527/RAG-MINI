@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Components use these via Tailwind (bg-surface, text-muted, ...). */
+:root {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f2f2f4;
+  --surface-3: #e9e9ec;
+  --border: #e4e4e8;
+  --border-strong: #d2d2d8;
+  --fg: #18181b;
+  --fg-2: #3f3f46;
+  --muted: #71717a;
+  --accent: #5b5bd6;
+  --accent-hover: #4f4fc4;
+  --accent-soft: #ededfc;
+  --accent-fg: #ffffff;
+  --success: #15803d;
+  --success-soft: #e8f5ec;
+  --warning: #b45309;
+  --warning-soft: #fdf3e2;
+  --danger: #c2410c;
+  --danger-soft: #fdeee6;
+  --ring: rgb(91 91 214 / 0.35);
+  --shadow: 0 1px 2px rgb(16 16 24 / 0.04), 0 4px 16px rgb(16 16 24 / 0.04);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0b0b0e;
+  --surface: #111115;
+  --surface-2: #17171c;
+  --surface-3: #202027;
+  --border: #23232b;
+  --border-strong: #31313b;
+  --fg: #ededf0;
+  --fg-2: #c4c4cc;
+  --muted: #8a8a96;
+  --accent: #8b8cf3;
+  --accent-hover: #9d9ef6;
+  --accent-soft: #1d1d33;
+  --accent-fg: #0b0b0e;
+  --success: #4ade80;
+  --success-soft: #11251a;
+  --warning: #fbbf24;
+  --warning-soft: #2a2110;
+  --danger: #fb923c;
+  --danger-soft: #2c1710;
+  --ring: rgb(139 140 243 / 0.4);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --shadow-soft: var(--shadow);
+
+  --animate-fade-up: fade-up 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-blink: blink 1s steps(2, start) infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+  @keyframes blink {
+    to { visibility: hidden; }
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* Shimmering text for "working" states. */
+.shimmer-text {
+  background: linear-gradient(90deg, var(--muted) 0%, var(--muted) 40%, var(--fg) 50%, var(--muted) 60%, var(--muted) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-shimmer);
+}
+
+/* Blinking caret after the last block of a streaming answer. */
+.streaming-caret .prose-answer > :last-child::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  transform: translateY(2px);
+  background: var(--accent);
+  animation: var(--animate-blink);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+/* Markdown answer typography */
+.prose-answer {
+  line-height: 1.7;
+  font-size: 0.9375rem;
+  color: var(--fg);
+}
+.prose-answer > * + * { margin-top: 0.75em; }
+.prose-answer h1, .prose-answer h2, .prose-answer h3 {
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 1.1em;
+}
+.prose-answer h1 { font-size: 1.15rem; }
+.prose-answer h2 { font-size: 1.05rem; }
+.prose-answer h3 { font-size: 1rem; }
+.prose-answer ul { list-style: disc; padding-left: 1.25rem; }
+.prose-answer ol { list-style: decimal; padding-left: 1.25rem; }
+.prose-answer li + li { margin-top: 0.25em; }
+.prose-answer li::marker { color: var(--muted); }
+.prose-answer strong { font-weight: 600; }
+.prose-answer a:not(.citation) { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.prose-answer code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+}
+.prose-answer pre {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+}
+.prose-answer pre code { background: none; border: 0; padding: 0; }
+.prose-answer blockquote {
+  border-left: 2px solid var(--border-strong);
+  padding-left: 0.9rem;
+  color: var(--fg-2);
+}
+.prose-answer table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.prose-answer th, .prose-answer td { border: 1px solid var(--border); padding: 0.4rem 0.6rem; text-align: left; }
+.prose-answer th { background: var(--surface-2); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

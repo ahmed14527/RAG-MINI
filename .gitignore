@@ -31,3 +31,12 @@ chroma_db/
 # OS specific
 .DS_Store
 Thumbs.db
+# Local data directory (Docker volume equivalent)
+/backend/data/
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+
+# Tool caches (e.g. Chroma, written by the dev container)
+.cache/
